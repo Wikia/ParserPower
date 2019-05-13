@@ -1,0 +1,28 @@
+{
+	"name": "ParserPower",
+	"version": "1.0.1",
+	"author": "[http://www.mediawiki.org/wiki/User:OoEyes Shawn Bruckner]",
+	"url": "http://sw.aeongarden.com/wiki/Extension:ParserPower",
+	"description": "A collection of extended parser functions for MediaWiki, particularly including functions for dealing with lists of values separated by a dynamically-specified delimiter.",
+	"descriptionmsg": "parserpower-desc",
+	"type": "parserhook",
+	"MessagesDirs": {
+		"parserpower": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"ParserPowerMagic": "ParserPower.i18n.magic.php"
+	},
+	"AutoloadClasses": {
+		"ParserPower": "includes/ParserPower.php",
+		"ParserPowerCompare": "includes/ParserPowerCompare.php",
+		"ParserPowerSortKeyValueComparer": "includes/ParserPowerSortKeyValueComparer.php",
+		"ParserPowerSimple": "includes/ParserPowerSimple.php",
+		"ParserPowerLists": "includes/ParserPowerLists.php"
+	},
+	"Hooks": {
+		"ParserFirstCallInit": "ParserPower::setup"
+	},
+	"manifest_version": 2
+}
