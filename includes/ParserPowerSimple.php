@@ -12,6 +12,8 @@
 namespace ParserPower;
 
 use PPFrame;
+use Title;
+use WikiPage;
 
 class ParserPowerSimple {
 	/**
