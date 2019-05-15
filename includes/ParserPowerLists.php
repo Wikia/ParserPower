@@ -2221,7 +2221,7 @@ class ParserPowerLists {
 	 * @param array   $tokens2  The list of tokens to replace when performing the replacement for $inValue2.
 	 * @param string  $pattern  Pattern containing tokens to be replaced by field (or unsplit) values.
 	 *
-	 * @return The result of the token replacement within the pattern.
+	 * @return string The result of the token replacement within the pattern.
 	 */
 	private static function applyTwoSetFieldPattern(
 		$parser,
@@ -2270,7 +2270,7 @@ class ParserPowerLists {
 	 * @param string  $template The template to pass the parameters to.
 	 * @param string  $fieldSep The delimiter separating the parameter values.
 	 *
-	 * @return The result of the template.
+	 * @return string The result of the template.
 	 */
 	private static function applyTemplateToTwoValues($parser, $frame, $inValue1, $inValue2, $template, $fieldSep) {
 		return self::applyTemplate($parser, $frame, $inValue1 . $fieldSep . $inValue2, $template, $fieldSep);
