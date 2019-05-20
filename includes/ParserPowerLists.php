@@ -12,6 +12,7 @@
 namespace ParserPower;
 
 use Countable;
+use Parser;
 use PPFrame;
 
 class ParserPowerLists {
