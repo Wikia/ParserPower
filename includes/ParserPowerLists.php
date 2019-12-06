@@ -272,6 +272,7 @@ class ParserPowerLists {
 	 */
 	private static function arrayTrimSliceUnescape($inOffset, $inLength, $inValues) {
 		$midValues = [];
+		$outValues = [];
 
 		foreach ($inValues as $inValue) {
 			$trimmedValue = trim($inValue);
