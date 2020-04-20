@@ -40,11 +40,11 @@ class ParserPower {
 	public static function arrangeParams($frame, $unexpandedParams) {
 		$params = [];
 		foreach ($unexpandedParams as $unexpandedParam) {
-			$param = explode('=', trim($frame->expand($unexpandedParam)), 2);
+			$param = explode('=', $frame->expand($unexpandedParam), 2);
 			if (count($param) == 2) {
-				$params[$param[0]] = $param[1];
+				$params[trim($param[0])] = trim($param[1]);
 			} else {
-				$params[] = $param[0];
+				$params[] = trim($param[0]);
 			}
 		}
 
