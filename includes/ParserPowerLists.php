@@ -1569,8 +1569,8 @@ class ParserPowerLists {
 				}
 			}
 		} else {
+			$index = 1;
 			foreach ($values as $value) {
-				$index = 1;
 				if (trim($value) !== '') {
 					$key = self::applyPatternWithIndex($parser, $frame, $value, $indexToken, $index, $token, $pattern);
 					$key = $parser->replaceVariables(ParserPower::unescape($key), $frame);
