@@ -256,7 +256,7 @@ class ParserPowerLists {
 			}
 		}
 
-		return "";
+		return '';
 	}
 
 	/**
@@ -394,7 +394,7 @@ class ParserPowerLists {
 
 			$inSep = $parser->mStripState->unstripNoWiki($inSep);
 
-			$value = "";
+			$value = '';
 			if (is_numeric($inIndex)) {
 				$value = self::arrayElementTrimUnescape(intval($inIndex), self::explodeList($inSep, $inList));
 			}
@@ -464,13 +464,12 @@ class ParserPowerLists {
 		if ($list !== '') {
 			$item = isset($params[0]) ? ParserPower::unescape(trim($frame->expand($params[0]))) : '';
 			$sep = isset($params[2]) ? ParserPower::unescape(trim($frame->expand($params[2]))) : ',';
-			$csOption = isset($params[3]) ?
-				  strtolower(trim($frame->expand($params[3]))) : 'ncs';
+			$csOption = isset($params[3]) ? strtolower(trim($frame->expand($params[3]))) : 'ncs';
 
 			$inSep = $parser->mStripState->unstripNoWiki($inSep);
 
 			$values = self::arrayTrimUnescape(self::explodeList($sep, $list));
-			if ($csOption === "cs") {
+			if ($csOption === 'cs') {
 				foreach ($values as $value) {
 					if ($value === $item) {
 						return [$value, 'noparse' => false];
@@ -767,7 +766,7 @@ class ParserPowerLists {
 	 * @return string The content wrapped by the intro and outro.
 	 */
 	private static function applyIntroAndOutro($intro, $content, $outro, $countToken, $count) {
-		if ($countToken !== null && $countToken !== "") {
+		if ($countToken !== null && $countToken !== '') {
 			$intro = str_replace($countToken, strval($count), $intro);
 			$outro = str_replace($countToken, strval($count), $outro);
 		}
@@ -926,8 +925,8 @@ class ParserPowerLists {
 						$pattern
 					);
 					$result = strtolower($parser->replaceVariables(ParserPower::unescape(trim($result)), $frame));
-					if ($result !== "remove") {
-							$outValues[] = $value;
+					if ($result !== 'remove') {
+						$outValues[] = $value;
 					}
 					++$index;
 				}
@@ -946,7 +945,7 @@ class ParserPowerLists {
 						$pattern
 					);
 					$result = strtolower($parser->replaceVariables(ParserPower::unescape($result), $frame));
-					if ($result !== "remove") {
+					if ($result !== 'remove') {
 						$outValues[] = $value;
 					}
 					++$index;
@@ -972,7 +971,7 @@ class ParserPowerLists {
 		$outValues = [];
 		foreach ($inValues as $value) {
 			$result = self::applyTemplate($parser, $frame, $value, $template, $fieldSep);
-			if ($value != '' && strtolower($result) !== "remove") {
+			if ($value !== '' && strtolower($result) !== 'remove') {
 				$outValues[] = $value;
 			}
 		}
@@ -999,38 +998,33 @@ class ParserPowerLists {
 		if ($inList !== '') {
 			$keepValues = isset($params["keep"]) ? trim($frame->expand($params["keep"])) : '';
 			$keepSep = isset($params["keepsep"]) ? trim($frame->expand($params["keepsep"])) : ',';
-			$keepCS = isset($params["keepcs"]) ?
-				strtolower(trim($frame->expand($params["keepcs"]))) :
-				'no';
+			$keepCS = isset($params["keepcs"]) ? strtolower(trim($frame->expand($params["keepcs"]))) : 'no';
 			$removeValues = isset($params["remove"]) ? trim($frame->expand($params["remove"])) : '';
 			$removeSep = isset($params["removesep"]) ? trim($frame->expand($params["removesep"])) : ',';
-			$removeCS = isset($params["removecs"]) ?
-				  strtolower(trim($frame->expand($params["removecs"]))) :
-				  'no';
+			$removeCS = isset($params["removecs"]) ? strtolower(trim($frame->expand($params["removecs"]))) : 'no';
 			$template = isset($params["template"]) ? trim($frame->expand($params["template"])) : '';
 			$inSep = isset($params["insep"]) ? ParserPower::unescape(trim($frame->expand($params["insep"]))) : ',';
 			$fieldSep = isset($params["fieldsep"]) ?
-				  ParserPower::unescape(trim($frame->expand($params["fieldsep"]))) : '';
+				ParserPower::unescape(trim($frame->expand($params["fieldsep"]))) : '';
 			$indexToken = isset($params["indextoken"]) ?
-					ParserPower::unescape(trim($frame->expand(
-						$params["indextoken"],
-						PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
-					))) : '';
+				ParserPower::unescape(trim($frame->expand(
+					$params["indextoken"],
+					PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
+				))) : '';
 			$token = isset($params["token"]) ?
-			   ParserPower::unescape(trim($frame->expand(
-				   $params["token"],
-				   PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
-			   ))) : '';
+				ParserPower::unescape(trim($frame->expand(
+					$params["token"],
+					PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
+				))) : '';
 			$tokenSep = isset($params["tokensep"]) ?
-				  ParserPower::unescape(trim($frame->expand($params["tokensep"]))) : ',';
+				ParserPower::unescape(trim($frame->expand($params["tokensep"]))) : ',';
 			$pattern = isset($params["pattern"]) ? $params["pattern"] : '';
-			$outSep = isset($params["outsep"]) ?
-				ParserPower::unescape(trim($frame->expand($params["outsep"]))) : ', ';
+			$outSep = isset($params["outsep"]) ? ParserPower::unescape(trim($frame->expand($params["outsep"]))) : ', ';
 			$countToken = isset($params["counttoken"]) ?
-					ParserPower::unescape(trim($frame->expand(
-						$params["counttoken"],
-						PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
-					))) : '';
+				ParserPower::unescape(trim($frame->expand(
+					$params["counttoken"],
+					PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
+				))) : '';
 			$intro = isset($params["intro"]) ? ParserPower::unescape(trim($frame->expand($params["intro"]))) : '';
 			$outro = isset($params["outro"]) ? ParserPower::unescape(trim($frame->expand($params["outro"]))) : '';
 
@@ -1040,18 +1034,18 @@ class ParserPowerLists {
 			$inValues = self::arrayTrimUnescape(self::explodeList($inSep, $inList));
 
 			if ($keepValues !== '') {
-				  $outValues = self::filterListByInclusion(
-					  $inValues,
-					  $keepValues,
-					  $keepSep,
-					  ($keepCS === "yes")
-				  );
+				$outValues = self::filterListByInclusion(
+					$inValues,
+					$keepValues,
+					$keepSep,
+					($keepCS === 'yes')
+				);
 			} elseif ($removeValues !== '') {
 				$outValues = self::filterListByExclusion(
 					$inValues,
 					$removeValues,
 					$removeSep,
-					($removeCS === "yes")
+					($removeCS === 'yes')
 				);
 			} elseif ($template !== '') {
 				$outValues = self::filterFromListByTemplate($parser, $frame, $inValues, $template, $fieldSep);
@@ -1098,10 +1092,8 @@ class ParserPowerLists {
 			$values = isset($params[0]) ? trim($frame->expand($params[0])) : '';
 			$valueSep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : ',';
 			$inSep = isset($params[3]) ? ParserPower::unescape(trim($frame->expand($params[3]))) : ',';
-			$outSep = isset($params[4]) ?
-				ParserPower::unescape(trim($frame->expand($params[4]))) : ', ';
-			$csOption = isset($params[5]) ?
-				  strtolower(trim($frame->expand($params[5]))) : 'ncs';
+			$outSep = isset($params[4]) ? ParserPower::unescape(trim($frame->expand($params[4]))) : ', ';
+			$csOption = isset($params[5]) ? strtolower(trim($frame->expand($params[5]))) : 'ncs';
 
 			$inSep = $parser->mStripState->unstripNoWiki($inSep);
 
@@ -1111,7 +1103,7 @@ class ParserPowerLists {
 				$inValues,
 				$values,
 				$valueSep,
-				($csOption === "cs")
+				($csOption === 'cs')
 			);
 
 			if (count($outValues) > 0) {
@@ -1155,11 +1147,11 @@ class ParserPowerLists {
 				$inSep,
 				$value,
 				'',
-				($csOption === "cs")
+				($csOption === 'cs')
 			);
 
 			if (count($outValues) > 0) {
-				  return [implode($outSep, $outValues), 'noparse' => false];
+				return [implode($outSep, $outValues), 'noparse' => false];
 			} else {
 				return ['', 'noparse' => false];
 			}
@@ -1180,7 +1172,7 @@ class ParserPowerLists {
 		if ($valueCS) {
 			return array_unique($values);
 		} else {
-			return array_intersect_key($values, array_unique(array_map("strtolower", $values)));
+			return array_intersect_key($values, array_unique(array_map('strtolower', $values)));
 		}
 	}
 
@@ -1198,13 +1190,12 @@ class ParserPowerLists {
 
 		if ($inList !== '') {
 			$sep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : '';
-			$csOption = isset($params[2]) ?
-				  strtolower(trim($frame->expand($params[2]))) : 'ncs';
+			$csOption = isset($params[2]) ? strtolower(trim($frame->expand($params[2]))) : 'ncs';
 
 			$sep = $parser->mStripState->unstripNoWiki($sep);
 
 			$values = self::arrayTrimUnescape(self::explodeList($sep, $list));
-			$values = self::reduceToUniqueValues($values, $csOption === "cs");
+			$values = self::reduceToUniqueValues($values, $csOption === 'cs');
 			return [strval(count($values)), 'noparse' => false];
 
 		} else {
@@ -1257,8 +1248,8 @@ class ParserPowerLists {
 					);
 					$key = $parser->replaceVariables(ParserPower::unescape($key), $frame);
 					if (!in_array($key, $previousKeys)) {
-							$previousKeys[] = $key;
-							$outValues[] = $value;
+						$previousKeys[] = $key;
+						$outValues[] = $value;
 					}
 					++$index;
 				}
@@ -1325,39 +1316,37 @@ class ParserPowerLists {
 		$default = isset($params["default"]) ? ParserPower::unescape(trim($frame->expand($params["default"]))) : '';
 
 		if ($inList !== '') {
-			$uniqueCS = isset($params["uniquecs"]) ?
-				  strtolower(trim($frame->expand($params["uniquecs"]))) : 'no';
+			$uniqueCS = isset($params["uniquecs"]) ? strtolower(trim($frame->expand($params["uniquecs"]))) : 'no';
 			$template = isset($params["template"]) ? trim($frame->expand($params["template"])) : '';
 			$inSep = isset($params["insep"]) ? ParserPower::unescape(trim($frame->expand($params["insep"]))) : ',';
 			$fieldSep = isset($params["fieldsep"]) ?
-				  ParserPower::unescape(trim($frame->expand($params["fieldsep"]))) : '';
+				ParserPower::unescape(trim($frame->expand($params["fieldsep"]))) : '';
 			$indexToken = isset($params["indextoken"]) ?
-					ParserPower::unescape(trim($frame->expand(
-						$params["indextoken"],
-						PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
-					))) : '';
+				ParserPower::unescape(trim($frame->expand(
+					$params["indextoken"],
+					PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
+				))) : '';
 			$token = isset($params["token"]) ?
-			   ParserPower::unescape(trim($frame->expand(
-				   $params["token"],
-				   PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
-			   ))) : '';
+				ParserPower::unescape(trim($frame->expand(
+					$params["token"],
+					PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
+				))) : '';
 			$tokenSep = isset($params["tokensep"]) ?
-				  ParserPower::unescape(trim($frame->expand($params["tokensep"]))) : ',';
+				ParserPower::unescape(trim($frame->expand($params["tokensep"]))) : ',';
 			$pattern = isset($params["pattern"]) ? $params["pattern"] : '';
-			$outSep = isset($params["outsep"]) ?
-				ParserPower::unescape(trim($frame->expand($params["outsep"]))) : ', ';
+			$outSep = isset($params["outsep"]) ? ParserPower::unescape(trim($frame->expand($params["outsep"]))) : ', ';
 			$countToken = isset($params["counttoken"]) ?
-					ParserPower::unescape(trim($frame->expand(
-						$params["counttoken"],
-						PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
-					))) : '';
+				ParserPower::unescape(trim($frame->expand(
+					$params["counttoken"],
+					PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
+				))) : '';
 			$intro = isset($params["intro"]) ? ParserPower::unescape(trim($frame->expand($params["intro"]))) : '';
 			$outro = isset($params["outro"]) ? ParserPower::unescape(trim($frame->expand($params["outro"]))) : '';
 
 			$inValues = self::arrayTrimUnescape(self::explodeList($inSep, $inList));
 
 			if ($fieldSep !== '' && $tokenSep !== '') {
-				  $tokens = explode($tokenSep, $token);
+				$tokens = explode($tokenSep, $token);
 			}
 
 			if ($template !== '') {
@@ -1380,7 +1369,7 @@ class ParserPowerLists {
 					$pattern
 				);
 			} else {
-				$outValues = self::reduceToUniqueValues($inValues, $uniqueCS === "yes");
+				$outValues = self::reduceToUniqueValues($inValues, $uniqueCS === 'yes');
 			}
 			$outList = implode($outSep, $outValues);
 			$count = strval(count($outValues));
@@ -1442,13 +1431,12 @@ class ParserPowerLists {
 		if ($inList !== '') {
 			$inSep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : '';
 			$outSep = isset($params[2]) ? ParserPower::unescape(trim($frame->expand($params[2]))) : '';
-			$csOption = isset($params[3]) ?
-				  strtolower(trim($frame->expand($params[3]))) : 'ncs';
+			$csOption = isset($params[3]) ? strtolower(trim($frame->expand($params[3]))) : 'ncs';
 
 			$inSep = $parser->mStripState->unstripNoWiki($inSep);
 
 			$values = self::arrayTrimUnescape(self::explodeList($inSep, $inList));
-			$values = self::reduceToUniqueValues($values, $csOption === "cs");
+			$values = self::reduceToUniqueValues($values, $csOption === 'cs');
 			return [implode($outSep, $values), 'noparse' => false];
 
 		} else {
@@ -1582,7 +1570,7 @@ class ParserPowerLists {
 			}
 		} else {
 			foreach ($values as $value) {
-				  $index = 1;
+				$index = 1;
 				if (trim($value) !== '') {
 					$key = self::applyPatternWithIndex($parser, $frame, $value, $indexToken, $index, $token, $pattern);
 					$key = $parser->replaceVariables(ParserPower::unescape($key), $frame);
@@ -1706,7 +1694,7 @@ class ParserPowerLists {
 			self::sortOptionsFromParam($subsortOptions)
 		);
 
-		usort($pairedValues, [$comparer, "compare"]);
+		usort($pairedValues, [$comparer, 'compare']);
 
 		return self::discardSortKeys($pairedValues);
 	}
@@ -1730,33 +1718,32 @@ class ParserPowerLists {
 			$template = isset($params["template"]) ? trim($frame->expand($params["template"])) : '';
 			$inSep = isset($params["insep"]) ? ParserPower::unescape(trim($frame->expand($params["insep"]))) : ',';
 			$fieldSep = isset($params["fieldsep"]) ?
-				  ParserPower::unescape(trim($frame->expand($params["fieldsep"]))) : '';
+				ParserPower::unescape(trim($frame->expand($params["fieldsep"]))) : '';
 			$indexToken = isset($params["indextoken"]) ?
-					ParserPower::unescape(trim($frame->expand(
-						$params["indextoken"],
-						PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
-					))) : '';
+				ParserPower::unescape(trim($frame->expand(
+					$params["indextoken"],
+					PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
+				))) : '';
 			$token = isset($params["token"]) ?
-			   ParserPower::unescape(trim($frame->expand(
-				   $params["token"],
-				   PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
-			   ))) : '';
+				ParserPower::unescape(trim($frame->expand(
+					$params["token"],
+					PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
+				))) : '';
 			$tokenSep = isset($params["tokensep"]) ?
-				  ParserPower::unescape(trim($frame->expand($params["tokensep"]))) : ',';
+				ParserPower::unescape(trim($frame->expand($params["tokensep"]))) : ',';
 			$pattern = isset($params["pattern"]) ? $params["pattern"] : '';
 			$outSep = isset($params["outsep"]) ?
 				ParserPower::unescape(trim($frame->expand($params["outsep"]))) : ', ';
 			$sortOptions = isset($params["sortoptions"]) ? trim($frame->expand($params["sortoptions"])) : '';
-			$subsort = isset($params["subsort"]) ?
-				 strtolower(trim($frame->expand($params["subsort"]))) : 'no';
+			$subsort = isset($params["subsort"]) ? strtolower(trim($frame->expand($params["subsort"]))) : 'no';
 			$subsortOptions = isset($params["subsortoptions"]) ? trim($frame->expand($params["subsortoptions"])) : '';
 			$duplicates = isset($params["duplicates"]) ?
-					strtolower(trim($frame->expand($params["duplicates"]))) : 'keep';
+				strtolower(trim($frame->expand($params["duplicates"]))) : 'keep';
 			$countToken = isset($params["counttoken"]) ?
-					ParserPower::unescape(trim($frame->expand(
-						$params["counttoken"],
-						PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
-					))) : '';
+				ParserPower::unescape(trim($frame->expand(
+					$params["counttoken"],
+					PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
+				))) : '';
 			$intro = isset($params["intro"]) ? ParserPower::unescape(trim($frame->expand($params["intro"]))) : '';
 			$outro = isset($params["outro"]) ? ParserPower::unescape(trim($frame->expand($params["outro"]))) : '';
 
@@ -1764,7 +1751,7 @@ class ParserPowerLists {
 
 			$values = self::arrayTrimUnescape(self::explodeList($inSep, $inList));
 			if ($duplicates === 'strip') {
-				  $values = array_unique($values);
+				$values = array_unique($values);
 			}
 
 			if ($fieldSep !== '' && $tokenSep !== '') {
@@ -1882,7 +1869,7 @@ class ParserPowerLists {
 				$inValues = array_unique($inValues);
 			}
 
-			if (($indexToken !== "" && $sortMode === "sort")
+			if (($indexToken !== '' && $sortMode === 'sort')
 				|| $sortMode === 'presort' || $sortMode === 'pre/postsort'
 			) {
 				$inValues = self::sortList($inValues, $sortOptions);
@@ -1907,8 +1894,8 @@ class ParserPowerLists {
 							$pattern
 						);
 						if ($outValue !== '') {
-							  $outValues[] = $outValue;
-							  ++$index;
+							$outValues[] = $outValue;
+							++$index;
 						}
 					}
 				}
@@ -1936,14 +1923,14 @@ class ParserPowerLists {
 				$outValues = array_unique($outValues);
 			}
 
-			if (($indexToken === "" && $sortMode === "sort")
+			if (($indexToken === '' && $sortMode === 'sort')
 				|| $sortMode == 'postsort' || $sortMode == 'pre/postsort'
 			) {
 				$outValues = self::sortList($outValues, $sortOptions);
 			}
 
 			if (count($outValues) > 0) {
-				if ($countToken !== null && $countToken !== "") {
+				if ($countToken !== null && $countToken !== '') {
 					$intro = str_replace($countToken, strval(count($outValues)), $intro);
 					$outro = str_replace($countToken, strval(count($outValues)), $outro);
 				}
@@ -2051,52 +2038,50 @@ class ParserPowerLists {
 			$template = isset($params["template"]) ? trim($frame->expand($params["template"])) : '';
 			$inSep = isset($params["insep"]) ? ParserPower::unescape(trim($frame->expand($params["insep"]))) : ',';
 			$fieldSep = isset($params["fieldsep"]) ?
-				  ParserPower::unescape(trim($frame->expand($params["fieldsep"]))) : '';
+				ParserPower::unescape(trim($frame->expand($params["fieldsep"]))) : '';
 			$indexToken = isset($params["indextoken"]) ?
-					ParserPower::unescape(trim($frame->expand(
-						$params["indextoken"],
-						PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
-					))) : '';
+				ParserPower::unescape(trim($frame->expand(
+					$params["indextoken"],
+					PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
+				))) : '';
 			$token = isset($params["token"]) ?
-			   ParserPower::unescape(trim($frame->expand(
-				   $params["token"],
-				   PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
-			   ))) : '';
+				ParserPower::unescape(trim($frame->expand(
+					$params["token"],
+					PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
+				))) : '';
 			$tokenSep = isset($params["tokensep"]) ?
-				  ParserPower::unescape(trim($frame->expand($params["tokensep"]))) : ',';
+				ParserPower::unescape(trim($frame->expand($params["tokensep"]))) : ',';
 			$pattern = isset($params["pattern"]) ? $params["pattern"] : '';
-			$outSep = isset($params["outsep"]) ?
-				ParserPower::unescape(trim($frame->expand($params["outsep"]))) : ', ';
-			$sortMode = isset($params["sortmode"]) ?
-				  strtolower(trim($frame->expand($params["sortmode"]))) : 'nosort';
+			$outSep = isset($params["outsep"]) ? ParserPower::unescape(trim($frame->expand($params["outsep"]))) : ', ';
+			$sortMode = isset($params["sortmode"]) ? strtolower(trim($frame->expand($params["sortmode"]))) : 'nosort';
 			$sortOptions = isset($params["sortoptions"]) ? trim($frame->expand($params["sortoptions"])) : '';
 			$duplicates = isset($params["duplicates"]) ?
-					strtolower(trim($frame->expand($params["duplicates"]))) : 'keep';
+				strtolower(trim($frame->expand($params["duplicates"]))) : 'keep';
 			$countToken = isset($params["counttoken"]) ?
-					ParserPower::unescape(trim($frame->expand(
-						$params["counttoken"],
-						PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
-					))) : '';
+				ParserPower::unescape(trim($frame->expand(
+					$params["counttoken"],
+					PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
+				))) : '';
 			$intro = isset($params["intro"]) ? ParserPower::unescape(trim($frame->expand($params["intro"]))) : '';
 			$outro = isset($params["outro"]) ? ParserPower::unescape(trim($frame->expand($params["outro"]))) : '';
 
 			if ($template !== '') {
-				  return self::applyTemplateToList(
-					  $parser,
-					  $frame,
-					  $inList,
-					  $template,
-					  $inSep,
-					  $fieldSep,
-					  $outSep,
-					  $sortMode,
-					  $sortOptions,
-					  $duplicates,
-					  $countToken,
-					  $intro,
-					  $outro,
-					  $default
-				  );
+				return self::applyTemplateToList(
+					$parser,
+					$frame,
+					$inList,
+					$template,
+					$inSep,
+					$fieldSep,
+					$outSep,
+					$sortMode,
+					$sortOptions,
+					$duplicates,
+					$countToken,
+					$intro,
+					$outro,
+					$default
+				);
 			} else {
 				return self::applyPatternToList(
 					$parser,
@@ -2138,8 +2123,7 @@ class ParserPowerLists {
 		if ($inList !== '') {
 			$inSep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : ',';
 			$token = isset($params[2]) ?
-			   ParserPower::unescape(trim($frame->expand($params[2], PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES))) :
-			   'x';
+			   ParserPower::unescape(trim($frame->expand($params[2], PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES))) : 'x';
 			$pattern = isset($params[3]) ? $params[3] : 'x';
 			$outSep = isset($params[4]) ? ParserPower::unescape(trim($frame->expand($params[4]))) : ', ';
 			$sortMode = isset($params[5]) ? strtolower(trim($frame->expand($params[5]))) : 'nosort';
@@ -2406,7 +2390,7 @@ class ParserPowerLists {
 				$parser,
 				$frame,
 				$inValues,
-				"ParserPower\\ParserPowerLists::applyTwoSetFieldPattern",
+				'ParserPower\\ParserPowerLists::applyTwoSetFieldPattern',
 				$matchParams,
 				$mergeParams,
 				2,
@@ -2414,7 +2398,7 @@ class ParserPowerLists {
 			);
 
 			if ($sortMode == 'sort' || $sortMode == 'postsort' || $sortMode == 'pre/postsort') {
-				  $outValues = self::sortList($outValues, $sortOptions);
+				$outValues = self::sortList($outValues, $sortOptions);
 			}
 
 			if (count($outValues) > 0) {
@@ -2422,11 +2406,11 @@ class ParserPowerLists {
 				$count = strval(count($outValues));
 				return [self::applyIntroAndOutro($intro, $outList, $outro, $countToken, $count), 'noparse' => false];
 			} else {
-				return [$default . "0 count", 'noparse' => false];
+				return [$default . '0 count', 'noparse' => false];
 			}
 
 		} else {
-			return [$default . "no input", 'noparse' => false];
+			return [$default . 'no input', 'noparse' => false];
 		}
 	}
 
@@ -2481,7 +2465,7 @@ class ParserPowerLists {
 				$parser,
 				$frame,
 				$inValues,
-				"ParserPower\\ParserPowerLists::applyTemplateToTwoValues",
+				'ParserPower\\ParserPowerLists::applyTemplateToTwoValues',
 				$matchParams,
 				$mergeParams,
 				2,
@@ -2489,9 +2473,9 @@ class ParserPowerLists {
 			);
 
 			if (count($outValues) > 0) {
-				  $outList = implode($outSep, $outValues);
-				  $count = strval(count($outValues));
-				  return [self::applyIntroAndOutro($intro, $outList, $outro, $countToken, $count), 'noparse' => false];
+				$outList = implode($outSep, $outValues);
+				$count = strval(count($outValues));
+				return [self::applyIntroAndOutro($intro, $outList, $outro, $countToken, $count), 'noparse' => false];
 			} else {
 				return [$default, 'noparse' => false];
 			}
@@ -2522,7 +2506,7 @@ class ParserPowerLists {
 			$mergeTemplate = isset($params["mergetemplate"]) ? trim($frame->expand($params["mergetemplate"])) : '';
 			$inSep = isset($params["insep"]) ? ParserPower::unescape(trim($frame->expand($params["insep"]))) : ',';
 			$fieldSep = isset($params["fieldsep"]) ?
-				  ParserPower::unescape(trim($frame->expand($params["fieldsep"]))) : '';
+				ParserPower::unescape(trim($frame->expand($params["fieldsep"]))) : '';
 			$token1 = isset($params["token1"]) ?
 				ParserPower::unescape(trim($frame->expand(
 					$params["token1"],
@@ -2534,39 +2518,37 @@ class ParserPowerLists {
 					PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
 				))) : '';
 			$tokenSep = isset($params["tokensep"]) ?
-				  ParserPower::unescape(trim($frame->expand($params["tokensep"]))) : ',';
+				ParserPower::unescape(trim($frame->expand($params["tokensep"]))) : ',';
 			$matchPattern = isset($params["matchpattern"]) ? $params["matchpattern"] : '';
 			$mergePattern = isset($params["mergepattern"]) ? $params["mergepattern"] : '';
-			$outSep = isset($params["outsep"]) ?
-				ParserPower::unescape(trim($frame->expand($params["outsep"]))) : ', ';
-			$sortMode = isset($params["sortmode"]) ?
-				  strtolower(trim($frame->expand($params["sortmode"]))) : 'nosort';
+			$outSep = isset($params["outsep"]) ? ParserPower::unescape(trim($frame->expand($params["outsep"]))) : ', ';
+			$sortMode = isset($params["sortmode"]) ? strtolower(trim($frame->expand($params["sortmode"]))) : 'nosort';
 			$sortOptions = isset($params["sortoptions"]) ? trim($frame->expand($params["sortoptions"])) : '';
 			$countToken = isset($params["counttoken"]) ?
-					ParserPower::unescape(trim($frame->expand(
-						$params["counttoken"],
-						PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
-					))) : '';
+				ParserPower::unescape(trim($frame->expand(
+					$params["counttoken"],
+					PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES
+				))) : '';
 			$intro = isset($params["intro"]) ? ParserPower::unescape(trim($frame->expand($params["intro"]))) : '';
 			$outro = isset($params["outro"]) ? ParserPower::unescape(trim($frame->expand($params["outro"]))) : '';
 
 			if ($matchTemplate !== '' && $mergeTemplate !== '') {
-				  return self::mergeListByTemplate(
-					  $parser,
-					  $frame,
-					  $inList,
-					  $matchTemplate,
-					  $mergeTemplate,
-					  $inSep,
-					  $fieldSep,
-					  $outSep,
-					  $sortMode,
-					  $sortOptions,
-					  $countToken,
-					  $intro,
-					  $outro,
-					  $default
-				  );
+				return self::mergeListByTemplate(
+					$parser,
+					$frame,
+					$inList,
+					$matchTemplate,
+					$mergeTemplate,
+					$inSep,
+					$fieldSep,
+					$outSep,
+					$sortMode,
+					$sortOptions,
+					$countToken,
+					$intro,
+					$outro,
+					$default
+				);
 			} else {
 				return self::mergeListByPattern(
 					$parser,

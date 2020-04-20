@@ -73,16 +73,16 @@ class ParserPowerSortKeyValueComparer {
 	private function getComparer($options) {
 		if ($options & ParserPowerLists::SORT_NUMERIC) {
 			if ($options & ParserPowerLists::SORT_DESC) {
-				return "ParserPowerCompare::numericrstrcmp";
+				return 'ParserPowerCompare::numericrstrcmp';
 			} else {
-				return "ParserPowerCompare::numericstrcmp";
+				return 'ParserPowerCompare::numericstrcmp';
 			}
 		} else {
 			if ($options & ParserPowerLists::SORT_CS) {
 				if ($options & ParserPowerLists::SORT_DESC) {
-					return "ParserPowerCompare::rstrcmp";
+					return 'ParserPowerCompare::rstrcmp';
 				} else {
-					return "strcmp";
+					return 'strcmp';
 				}
 			} else {
 				if ($options & ParserPowerLists::SORT_DESC) {

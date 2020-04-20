@@ -270,7 +270,7 @@ class ParserPower {
 		$inValue = trim($inValue);
 		if (trim($pattern) !== '') {
 			$outValue = $frame->expand($pattern, PPFrame::NO_ARGS || PPFrame::NO_TEMPLATES);
-			if ($indexToken !== null && $indexToken !== "") {
+			if ($indexToken !== null && $indexToken !== '') {
 				$outValue = str_replace($indexToken, strval($index), $outValue);
 			}
 			if ($token !== null && $token !== '') {
@@ -340,7 +340,7 @@ class ParserPower {
 		$inValue = trim($inValue);
 		if (trim($pattern) !== '') {
 			$outValue = $frame->expand($pattern, PPFrame::NO_ARGS || PPFrame::NO_TEMPLATES);
-			if ($indexToken !== null && $indexToken !== "") {
+			if ($indexToken !== null && $indexToken !== '') {
 				$outValue = str_replace($indexToken, strval($index), $outValue);
 			}
 			$fields = explode($fieldSep, $inValue, $tokenCount);

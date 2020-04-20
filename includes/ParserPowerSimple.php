@@ -114,7 +114,7 @@ class ParserPowerSimple {
 	 */
 	public static function trimRender($parser, $frame, $params) {
 		return [ isset($params[0]) ? trim($frame->expand($params[0])) : '',
-			'noparse' => false,
+			'noparse' => false
 		];
 	}
 
@@ -130,7 +130,7 @@ class ParserPowerSimple {
 	 */
 	public static function uescRender($parser, $frame, $params) {
 		return [ isset($params[0]) ? ParserPower::unescape(trim($frame->expand($params[0]))) : '',
-			'noparse' => false,
+			'noparse' => false
 		];
 	}
 
@@ -149,7 +149,7 @@ class ParserPowerSimple {
 		$text = isset($params[0]) ? ParserPower::unescape(trim($frame->expand($params[0]))) : '';
 
 		return [ '<nowiki>' . $text . '</nowiki>',
-			'noparse' => false,
+			'noparse' => false
 		];
 	}
 
@@ -165,7 +165,7 @@ class ParserPowerSimple {
 	 */
 	public static function trimuescRender($parser, $frame, $params) {
 		return [ isset($params[0]) ? trim(ParserPower::unescape($frame->expand($params[0]))) : '',
-			'noparse' => false,
+			'noparse' => false
 		];
 	}
 
@@ -185,7 +185,7 @@ class ParserPowerSimple {
 		$text = $parser->replaceVariables($text, $frame);
 
 		if ($text) {
-			return [ preg_replace_callback('/\[\[(.*?)\]\]/', "self::linkpageReplace", $text),
+			return [ preg_replace_callback('/\[\[(.*?)\]\]/', 'self::linkpageReplace', $text),
 				'noparse' => false
 			];
 		} else {
@@ -222,7 +222,7 @@ class ParserPowerSimple {
 		$text = $parser->replaceVariables($text, $frame);
 
 		if ($text) {
-			return [ preg_replace_callback('/\[\[(.*?)\]\]/', "self::linktextReplace", $text),
+			return [ preg_replace_callback('/\[\[(.*?)\]\]/', 'self::linktextReplace', $text),
 				'noparse' => false
 			];
 		} else {
@@ -340,8 +340,7 @@ class ParserPowerSimple {
 		$inValue = isset($params[0]) ? trim($frame->expand($params[0])) : '';
 
 		$token = isset($params[1]) ?
-			 ParserPower::unescape(trim($frame->expand($params[1], PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES))) :
-			 'x';
+			ParserPower::unescape(trim($frame->expand($params[1], PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES))) : 'x';
 		$pattern = isset($params[2]) ? $params[2] : 'x';
 
 		return [ParserPower::applyPattern($parser, $frame, $inValue, $token, $pattern), 'noparse' => false];
@@ -362,8 +361,8 @@ class ParserPowerSimple {
 
 		if ($inValue !== '') {
 			$token = isset($params[1]) ?
-			   ParserPower::unescape(trim($frame->expand($params[1], PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES))) :
-			   'x';
+				ParserPower::unescape(trim($frame->expand($params[1], PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES))) :
+				'x';
 			$pattern = isset($params[2]) ? $params[2] : 'x';
 
 			return [ParserPower::applyPattern($parser, $frame, $inValue, $token, $pattern), 'noparse' => false];
@@ -385,13 +384,13 @@ class ParserPowerSimple {
 		$switchKey = isset($params[0]) ? ParserPower::unescape(trim($frame->expand(array_shift($params)))) : '';
 		if (count($params) > 0) {
 			$default = '';
-			if (strpos($frame->expand($params[count($params) - 1]), "=") === false) {
+			if (strpos($frame->expand($params[count($params) - 1]), '=') === false) {
 				$default = array_pop($params);
 			}
 
 			$keyFound = false;
 			foreach ($params as $param) {
-				$pair = explode("=", trim($frame->expand($param)), 2);
+				$pair = explode('=', trim($frame->expand($param)), 2);
 				if (!$keyFound && ParserPower::unescape($pair[0]) === $switchKey) {
 					$keyFound = true;
 				}
