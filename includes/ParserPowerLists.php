@@ -1448,7 +1448,7 @@ class ParserPowerLists {
 	 * This function converts a string containing index option keywords into an integer of index option flags.
 	 *
 	 * @param string $param   The string containg index options keywords.
-	 * @param int    $default ANy flags that should be set by default.
+	 * @param int    $default Any flags that should be set by default.
 	 *
 	 * @return int The flags representing the requested options.
 	 */
@@ -1511,7 +1511,7 @@ class ParserPowerLists {
 				}
 			} else {
 				if ($options & self::SORT_DESC) {
-					usort($values, 'ParserPowerCompare::rstrcasecmp');
+					usort($values, 'ParserPower\\ParserPowerCompare::rstrcasecmp');
 					return $values;
 				} else {
 					usort($values, 'strcasecmp');
