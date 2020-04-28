@@ -908,7 +908,7 @@ class ParserPowerLists {
 	) {
 		$outValues = [];
 		if ($fieldSep !== '' && $tokenSep !== '') {
-			$tokens = explode($tokenSep, $token);
+			$tokens = array_map('trim', explode($tokenSep, $token));
 			$tokenCount = count($tokens);
 			$index = 1;
 			foreach ($inValues as $value) {
@@ -1346,7 +1346,7 @@ class ParserPowerLists {
 			$inValues = self::arrayTrimUnescape(self::explodeList($inSep, $inList));
 
 			if ($fieldSep !== '' && $tokenSep !== '') {
-				$tokens = explode($tokenSep, $token);
+				$tokens = array_map('trim', explode($tokenSep, $token));
 			}
 
 			if ($template !== '') {
@@ -1755,7 +1755,7 @@ class ParserPowerLists {
 			}
 
 			if ($fieldSep !== '' && $tokenSep !== '') {
-				$tokens = explode($tokenSep, $token);
+				$tokens = array_map('trim', explode($tokenSep, $token));
 			}
 
 			if ($template !== '' || (($indexToken !== '' || $token !== '') && $pattern !== '')) {
@@ -1878,7 +1878,7 @@ class ParserPowerLists {
 			$outValues = [];
 			$index = 1;
 			if ($fieldSep !== '' && $tokenSep !== '') {
-				$tokens = explode($tokenSep, $token);
+				$tokens = array_map('trim', explode($tokenSep, $token));
 				$tokenCount = count($tokens);
 				foreach ($inValues as $inValue) {
 					if (trim($inValue) !== '') {
