@@ -601,7 +601,7 @@ class ParserPowerLists {
 		$list = isset($params[2]) ? trim($frame->expand($params[2])) : '';
 
 		if ($list !== '') {
-			$sep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : ',';
+			$sep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : '';
 
 			$sep = $parser->mStripState->unstripNoWiki($sep);
 
