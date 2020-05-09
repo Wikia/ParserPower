@@ -466,7 +466,7 @@ class ParserPowerLists {
 			$sep = isset($params[2]) ? ParserPower::unescape(trim($frame->expand($params[2]))) : ',';
 			$csOption = isset($params[3]) ? strtolower(trim($frame->expand($params[3]))) : 'ncs';
 
-			$inSep = $parser->mStripState->unstripNoWiki($inSep);
+			$sep = $parser->mStripState->unstripNoWiki($sep);
 
 			$values = self::arrayTrimUnescape(self::explodeList($sep, $list));
 			if ($csOption === 'cs') {
@@ -506,7 +506,7 @@ class ParserPowerLists {
 			$sep = isset($params[2]) ? ParserPower::unescape(trim($frame->expand($params[2]))) : ',';
 			$inOptions = isset($params[3]) ? strtolower(trim($frame->expand($params[3]))) : '';
 
-			$inSep = $parser->mStripState->unstripNoWiki($inSep);
+			$sep = $parser->mStripState->unstripNoWiki($sep);
 			$options = self::indexOptionsFromParam($inOptions);
 
 			$values = self::arrayTrimUnescape(self::explodeList($sep, $list));
@@ -1188,7 +1188,7 @@ class ParserPowerLists {
 	public static function lstcntuniqRender($parser, $frame, $params) {
 		$list = isset($params[0]) ? trim($frame->expand($params[0])) : '';
 
-		if ($inList !== '') {
+		if ($list !== '') {
 			$sep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : '';
 			$csOption = isset($params[2]) ? strtolower(trim($frame->expand($params[2]))) : 'ncs';
 
