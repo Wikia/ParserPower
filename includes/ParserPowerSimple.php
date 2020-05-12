@@ -295,14 +295,15 @@ class ParserPowerSimple {
 	 * @return array The function output along with relevant parser options.
 	 */
 	public static function orRender($parser, $frame, $params) {
-		$inValue1 = isset($params[0]) ? trim($frame->expand($params[0])) : '';
-		$inValue2 = isset($params[1]) ? $params[1] : '';
+		foreach ($params as $param) {
+			$inValue = trim($frame->expand($param));
 
-		if ($inValue1 !== '') {
-			return [ParserPower::unescape($inValue1), 'noparse' => false];
-		} else {
-			return [ParserPower::unescape(trim($frame->expand($inValue2))), 'noparse' => false];
+			if ($inValue !== '') {
+				return [ParserPower::unescape($inValue), 'noparse' => false];
+			}
 		}
+
+		return ['', 'noparse' => false];
 	}
 
 	/**

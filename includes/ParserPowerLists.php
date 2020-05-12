@@ -338,7 +338,7 @@ class ParserPowerLists {
 		$list = isset($params[0]) ? trim($frame->expand($params[0])) : '';
 
 		if ($list !== '') {
-			$sep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : '';
+			$sep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : ',';
 
 			$sep = $parser->mStripState->unstripNoWiki($sep);
 
@@ -363,8 +363,8 @@ class ParserPowerLists {
 		$inList = isset($params[0]) ? trim($frame->expand($params[0])) : '';
 
 		if ($inList !== '') {
-			$inSep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : '';
-			$outSep = isset($params[2]) ? ParserPower::unescape(trim($frame->expand($params[2]))) : '';
+			$inSep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : ',';
+			$outSep = isset($params[2]) ? ParserPower::unescape(trim($frame->expand($params[2]))) : ', ';
 
 			$inSep = $parser->mStripState->unstripNoWiki($inSep);
 
@@ -389,15 +389,17 @@ class ParserPowerLists {
 		$inList = isset($params[0]) ? trim($frame->expand($params[0])) : '';
 
 		if ($inList !== '') {
-			$inSep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : '';
+			$inSep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : ',';
 			$inIndex = isset($params[2]) ? ParserPower::unescape(trim($frame->expand($params[2]))) : '';
 
 			$inSep = $parser->mStripState->unstripNoWiki($inSep);
 
-			$value = '';
+			$index = 1;
 			if (is_numeric($inIndex)) {
-				$value = self::arrayElementTrimUnescape(intval($inIndex), self::explodeList($inSep, $inList));
+				$index = intval($inIndex);
 			}
+
+			$value = self::arrayElementTrimUnescape($index, self::explodeList($inSep, $inList));
 
 			return [$value, 'noparse' => false];
 
@@ -419,8 +421,8 @@ class ParserPowerLists {
 		$inList = isset($params[0]) ? trim($frame->expand($params[0])) : '';
 
 		if ($inList !== '') {
-			$inSep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : '';
-			$outSep = isset($params[2]) ? ParserPower::unescape(trim($frame->expand($params[2]))) : '';
+			$inSep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : ',';
+			$outSep = isset($params[2]) ? ParserPower::unescape(trim($frame->expand($params[2]))) : ', ';
 			$inOffset = isset($params[3]) ? ParserPower::unescape(trim($frame->expand($params[3]))) : '';
 			$inLength = isset($params[4]) ? ParserPower::unescape(trim($frame->expand($params[4]))) : '';
 
@@ -569,7 +571,7 @@ class ParserPowerLists {
 		$value = isset($params[2]) ? ParserPower::unescape(trim($frame->expand($params[2]))) : '';
 
 		if ($list !== '') {
-			$sep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : '';
+			$sep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : ',';
 
 			$sep = $parser->mStripState->unstripNoWiki($sep);
 
@@ -646,7 +648,7 @@ class ParserPowerLists {
 			} else {
 				$values2 = [];
 			}
-			$outSep = isset($params[4]) ? ParserPower::unescape(trim($frame->expand($params[4]))) : '';
+			$outSep = isset($params[4]) ? ParserPower::unescape(trim($frame->expand($params[4]))) : ', ';
 
 			return [implode($outSep, array_merge($values1, $values2)), 'noparse' => false];
 
@@ -1186,11 +1188,12 @@ class ParserPowerLists {
 	 * @return array The function output along with relevant parser options.
 	 */
 	public static function lstcntuniqRender($parser, $frame, $params) {
-		$list = isset($params[0]) ? trim($frame->expand($params[0])) : '';
+		$inList = isset($params[0]) ? trim($frame->expand($params[0])) : '';
 
-		if ($list !== '') {
-			$sep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : '';
-			$csOption = isset($params[2]) ? strtolower(trim($frame->expand($params[2]))) : 'ncs';
+		if ($inList !== '') {
+			$sep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : ',';
+			$csOption = isset($params[2]) ?
+				  strtolower(trim($frame->expand($params[2]))) : 'ncs';
 
 			$sep = $parser->mStripState->unstripNoWiki($sep);
 
@@ -1429,9 +1432,10 @@ class ParserPowerLists {
 		$inList = isset($params[0]) ? trim($frame->expand($params[0])) : '';
 
 		if ($inList !== '') {
-			$inSep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : '';
-			$outSep = isset($params[2]) ? ParserPower::unescape(trim($frame->expand($params[2]))) : '';
-			$csOption = isset($params[3]) ? strtolower(trim($frame->expand($params[3]))) : 'ncs';
+			$inSep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : ',';
+			$outSep = isset($params[2]) ? ParserPower::unescape(trim($frame->expand($params[2]))) : ', ';
+			$csOption = isset($params[3]) ?
+				  strtolower(trim($frame->expand($params[3]))) : 'ncs';
 
 			$inSep = $parser->mStripState->unstripNoWiki($inSep);
 
@@ -1803,8 +1807,8 @@ class ParserPowerLists {
 		$inList = isset($params[0]) ? trim($frame->expand($params[0])) : '';
 
 		if ($inList !== '') {
-			$inSep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : '';
-			$outSep = isset($params[2]) ? ParserPower::unescape(trim($frame->expand($params[2]))) : '';
+			$inSep = isset($params[1]) ? ParserPower::unescape(trim($frame->expand($params[1]))) : ',';
+			$outSep = isset($params[2]) ? ParserPower::unescape(trim($frame->expand($params[2]))) : ', ';
 			$sortOptions = isset($params[3]) ? trim($frame->expand($params[3])) : '';
 
 			$inSep = $parser->mStripState->unstripNoWiki($inSep);
