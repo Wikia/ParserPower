@@ -14,6 +14,7 @@ namespace ParserPower;
 use Countable;
 use Parser;
 use PPFrame;
+use PPNode_Hash_Array;
 
 class ParserPowerLists {
 	/**
@@ -889,7 +890,7 @@ class ParserPowerLists {
 	 *
 	 * @param Parser  $parser     The parser object.
 	 * @param PPFrame $frame      The parser frame object.
-	 * @param string  $inValues   Array with the input values.
+	 * @param array   $inValues   Array with the input values.
 	 * @param string  $fieldSep   Separator between fields, if any.
 	 * @param string  $indexToken Replace the current 1-based index of the element. Null/empty to skip.
 	 * @param string  $token      The token(s) in the pattern that represents where the list value should go.
@@ -963,7 +964,7 @@ class ParserPowerLists {
 	 *
 	 * @param Parser  $parser   The parser object.
 	 * @param PPFrame $frame    The parser frame object.
-	 * @param string  $inValues Array with the input values.
+	 * @param array   $inValues Array with the input values.
 	 * @param string  $template The template to use.
 	 * @param string  $fieldSep Separator between fields, if any.
 	 *
@@ -1045,6 +1046,7 @@ class ParserPowerLists {
 			} elseif ($removeValues !== '') {
 				$outValues = self::filterListByExclusion(
 					$inValues,
+					$inSep,
 					$removeValues,
 					$removeSep,
 					($removeCS === 'yes')
@@ -1197,7 +1199,7 @@ class ParserPowerLists {
 
 			$sep = $parser->mStripState->unstripNoWiki($sep);
 
-			$values = self::arrayTrimUnescape(self::explodeList($sep, $list));
+			$values = self::arrayTrimUnescape(self::explodeList($sep, $inList));
 			$values = self::reduceToUniqueValues($values, $csOption === 'cs');
 			return [strval(count($values)), 'noparse' => false];
 
@@ -1531,7 +1533,7 @@ class ParserPowerLists {
 	 *
 	 * @param Parser  $parser     The parser object.
 	 * @param PPFrame $frame      The parser frame object.
-	 * @param string  $values     The input list.
+	 * @param array   $values     The input list.
 	 * @param string  $fieldSep   Separator between fields, if any.
 	 * @param int     $indexToken
 	 * @param string  $token      The token in the pattern that represents where the list value should go.
@@ -1594,7 +1596,7 @@ class ParserPowerLists {
 	 *
 	 * @param Parser  $parser   The parser object.
 	 * @param PPFrame $frame    The parser frame object.
-	 * @param string  $values   The input list.
+	 * @param array   $values   The input list.
 	 * @param string  $template
 	 * @param string  $fieldSep Separator between fields, if any.
 	 *
