@@ -11,9 +11,9 @@
 
 namespace ParserPower;
 
+use MediaWiki\MediaWikiServices;
 use PPFrame;
 use Title;
-use WikiPage;
 
 class ParserPowerSimple {
 	/**
@@ -44,26 +44,22 @@ class ParserPowerSimple {
 			'ParserPower\\ParserPowerSimple::trimuescRender',
 			SFH_OBJECT_ARGS
 		);
-		$parser->setFunctionTagHook(
+		$parser->setHook(
 			'linkpage',
-			'ParserPower\\ParserPowerSimple::linkpageRender',
-			0
+			'ParserPower\\ParserPowerSimple::linkpageRender'
 		);
-		$parser->setFunctionTagHook(
+		$parser->setHook(
 			'linktext',
-			'ParserPower\\ParserPowerSimple::linktextRender',
-			0
+			'ParserPower\\ParserPowerSimple::linktextRender'
 		);
-		$parser->setFunctionTagHook(
+		$parser->setHook(
 			'esc',
-			'ParserPower\\ParserPowerSimple::escRender',
-			0
+			'ParserPower\\ParserPowerSimple::escRender'
 		);
 		for ($i = 1; $i < 10; ++$i) {
-			$parser->setFunctionTagHook(
+			$parser->setHook(
 				'esc' . $i,
-				'ParserPower\\ParserPowerSimple::escRender',
-				0
+				'ParserPower\\ParserPowerSimple::escRender'
 			);
 		}
 		$parser->setFunctionHook(
@@ -181,7 +177,7 @@ class ParserPowerSimple {
 	 *
 	 * @return array The function output along with relevant parser options.
 	 */
-	public static function linkpageRender(&$parser, $frame, $text, $attribs) {
+	public static function linkpageRender($text, $attribs, $parser, PPFrame $frame) {
 		$text = $parser->replaceVariables($text, $frame);
 
 		if ($text) {
@@ -218,7 +214,7 @@ class ParserPowerSimple {
 	 *
 	 * @return array The function output along with relevant parser options.
 	 */
-	public static function linktextRender(&$parser, $frame, $text, $attribs) {
+	public static function linktextRender($text, $attribs, $parser, PPFrame $frame) {
 		$text = $parser->replaceVariables($text, $frame);
 
 		if ($text) {
@@ -256,7 +252,7 @@ class ParserPowerSimple {
 	 *
 	 * @return array The function output along with relevant parser options.
 	 */
-	public static function escRender(&$parser, $frame, $text, $attribs) {
+	public static function escRender($text, $attribs, $parser, $frame) {
 		$text = ParserPower::escape($text);
 
 		$text = $parser->replaceVariables($text, $frame);
@@ -420,7 +416,7 @@ class ParserPowerSimple {
 		$output = $text;
 		$title = Title::newFromText($text);
 		if ($title !== null && $title->getNamespace() !== NS_MEDIA && $title->getNamespace() > -1) {
-			$page = WikiPage::factory($title);
+			$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle($title);
 			$target = $page->getRedirectTarget();
 			if ($target !== null) {
 				$output = $target->getPrefixedText();
