@@ -182,10 +182,11 @@ class ParserPowerSimple {
 
 		if ($text) {
 			return [ preg_replace_callback('/\[\[(.*?)\]\]/', 'self::linkpageReplace', $text),
-				'noparse' => false
+				'noparse' => false,
+				'markerType' => 'none'
 			];
 		} else {
-			return '';
+			return ['', 'markerType' => 'none' ];
 		}
 	}
 
@@ -219,10 +220,11 @@ class ParserPowerSimple {
 
 		if ($text) {
 			return [ preg_replace_callback('/\[\[(.*?)\]\]/', 'self::linktextReplace', $text),
-				'noparse' => false
+				'noparse' => false,
+				'markerType' => 'none'
 			];
 		} else {
-			return '';
+			return [ '', 'markerType' => 'none' ];
 		}
 	}
 
@@ -257,7 +259,7 @@ class ParserPowerSimple {
 
 		$text = $parser->replaceVariables($text, $frame);
 
-		return [$text, 'noparse' => false];
+		return [ $text, 'noparse' => false, 'markerType' => 'none' ];
 	}
 
 	/**
