@@ -170,10 +170,10 @@ class ParserPowerSimple {
 	 * This removes internal links from, the given wikicode, replacing them with
 	 * the name of the page they would have linked to.
 	 *
-	 * @param Parser  $parser  The parser object.
-	 * @param PPFrame $frame   The parser frame object.
 	 * @param string  $text    The text within the tag function.
 	 * @param array   $attribs Attributes values of the tag function.
+	 * @param Parser  $parser  The parser object.
+	 * @param PPFrame $frame   The parser frame object.
 	 *
 	 * @return array The function output along with relevant parser options.
 	 */
@@ -186,7 +186,7 @@ class ParserPowerSimple {
 				'markerType' => 'none'
 			];
 		} else {
-			return ['', 'markerType' => 'none' ];
+			return ['', 'markerType' => 'none'];
 		}
 	}
 
@@ -208,10 +208,10 @@ class ParserPowerSimple {
 	 * This removes internal links from, the given wikicode, replacing them with
 	 * the text that any links would return.
 	 *
-	 * @param Parser  $parser  The parser object. Ignored.
-	 * @param PPFrame $frame   The parser frame object.
 	 * @param string  $text    The parameters and values together, not yet exploded or trimmed.
 	 * @param array   $attribs
+	 * @param Parser  $parser  The parser object. Ignored.
+	 * @param PPFrame $frame   The parser frame object.
 	 *
 	 * @return array The function output along with relevant parser options.
 	 */
@@ -224,7 +224,7 @@ class ParserPowerSimple {
 				'markerType' => 'none'
 			];
 		} else {
-			return [ '', 'markerType' => 'none' ];
+			return ['', 'markerType' => 'none'];
 		}
 	}
 
@@ -247,10 +247,10 @@ class ParserPowerSimple {
 	/**
 	 * This function escapes all appropriate characters in the given text and returns the result.
 	 *
-	 * @param Parser  $parser  The parser object.
-	 * @param PPFrame $frame   The parser frame object.
 	 * @param string  $text    The text within the tag function.
 	 * @param array   $attribs Attributes values of the tag function.
+	 * @param Parser  $parser  The parser object.
+	 * @param PPFrame $frame   The parser frame object.
 	 *
 	 * @return array The function output along with relevant parser options.
 	 */
@@ -259,7 +259,7 @@ class ParserPowerSimple {
 
 		$text = $parser->replaceVariables($text, $frame);
 
-		return [ $text, 'noparse' => false, 'markerType' => 'none' ];
+		return [$text, 'noparse' => false, 'markerType' => 'none'];
 	}
 
 	/**
