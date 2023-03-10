@@ -29,14 +29,14 @@ class ParserPowerSortKeyValueComparer {
 	/**
 	 * Constructs a ParserPowerSortKeyComparer from the given options.
 	 *
-	 * @param int  $sortKeyOptions The options for the key sort.
-	 * @param bool $valueSort      true to perform a value sort for values with the same key.
-	 * @param int  $valueOptions   The options for the value sort.
+	 * @param int $sortKeyOptions The options for the key sort.
+	 * @param bool $valueSort true to perform a value sort for values with the same key.
+	 * @param int $valueOptions The options for the value sort.
 	 */
-	public function __construct($sortKeyOptions, $valueSort, $valueOptions = 0) {
-		$this->mSortKeyCompare = $this->getComparer($sortKeyOptions);
-		if ($valueSort) {
-			$this->mValueCompare = $this->getComparer($valueOptions);
+	public function __construct( $sortKeyOptions, $valueSort, $valueOptions = 0 ) {
+		$this->mSortKeyCompare = $this->getComparer( $sortKeyOptions );
+		if ( $valueSort ) {
+			$this->mValueCompare = $this->getComparer( $valueOptions );
 		}
 	}
 
@@ -49,12 +49,12 @@ class ParserPowerSortKeyValueComparer {
 	 *
 	 * @return int Number > 0 if str1 is less than str2; Number < 0 if str1 is greater than str2; 0 if they are equal.
 	 */
-	public function compare($pair1, $pair2) {
-		$result = call_user_func($this->mSortKeyCompare, $pair1[0], $pair2[0]);
+	public function compare( $pair1, $pair2 ) {
+		$result = call_user_func( $this->mSortKeyCompare, $pair1[0], $pair2[0] );
 
-		if ($result == 0) {
-			if ($this->mValueCompare) {
-				return call_user_func($this->mValueCompare, $pair1[1], $pair2[1]);
+		if ( $result == 0 ) {
+			if ( $this->mValueCompare ) {
+				return call_user_func( $this->mValueCompare, $pair1[1], $pair2[1] );
 			} else {
 				return 0;
 			}
@@ -83,9 +83,9 @@ class ParserPowerSortKeyValueComparer {
 	 *
 	 * @return ?callable If something broke up the call-stack this could potentially return null
 	 */
-	private function getComparer($options) {
-		if ($options & ParserPowerLists::SORT_NUMERIC) {
-			if ($options & ParserPowerLists::SORT_DESC) {
+	private function getComparer( $options ) {
+		if ( $options & ParserPowerLists::SORT_NUMERIC ) {
+			if ( $options & ParserPowerLists::SORT_DESC ) {
 				// 101 NUM DESC
 				return 'ParserPower\\ParserPowerCompare::numericrstrcmp';
 			} else {
@@ -93,8 +93,8 @@ class ParserPowerSortKeyValueComparer {
 				return 'ParserPower\\ParserPowerCompare::numericstrcmp';
 			}
 		} else {
-			if ($options & ParserPowerLists::SORT_CS) {
-				if ($options & ParserPowerLists::SORT_DESC) {
+			if ( $options & ParserPowerLists::SORT_CS ) {
+				if ( $options & ParserPowerLists::SORT_DESC ) {
 					// 011 STR CS DESC
 					return 'ParserPower\\ParserPowerCompare::rstrcmp';
 				} else {
@@ -102,7 +102,7 @@ class ParserPowerSortKeyValueComparer {
 					return 'strcmp';
 				}
 			} else {
-				if ($options & ParserPowerLists::SORT_DESC) {
+				if ( $options & ParserPowerLists::SORT_DESC ) {
 					// 001 STR CI DESC
 					return 'ParserPower\\ParserPowerCompare::rstrcasecmp';
 				} else {
