@@ -12,6 +12,7 @@
 namespace ParserPower;
 
 use MediaWiki\MediaWikiServices;
+use Parser;
 use PPFrame;
 use Title;
 
@@ -190,7 +191,7 @@ class ParserPowerSimple {
 
 		if ( $text ) {
 			return [
-				preg_replace_callback( '/\[\[(.*?)\]\]/', 'self::linkpageReplace', $text ),
+				preg_replace_callback( '/\[\[(.*?)\]\]/', self::linkpageReplace( ... ), $text ),
 				'noparse' => false,
 				'markerType' => 'none',
 			];
@@ -205,7 +206,7 @@ class ParserPowerSimple {
 	 *
 	 * @param array $matches The parameters and values together, not yet exploded or trimmed.
 	 *
-	 * @return array The function output along with relevant parser options.
+	 * @return string The function output along with relevant parser options.
 	 */
 	public static function linkpageReplace( $matches ) {
 		$parts = explode( '|', $matches[1], 2 );
@@ -230,7 +231,7 @@ class ParserPowerSimple {
 
 		if ( $text ) {
 			return [
-				preg_replace_callback( '/\[\[(.*?)\]\]/', 'self::linktextReplace', $text ),
+				preg_replace_callback( '/\[\[(.*?)\]\]/', self::linktextReplace( ... ), $text ),
 				'noparse' => false,
 				'markerType' => 'none',
 			];
@@ -244,7 +245,7 @@ class ParserPowerSimple {
 	 *
 	 * @param array $matches The parameters and values together, not yet exploded or trimmed.
 	 *
-	 * @return array The function output along with relevant parser options.
+	 * @return string The function output along with relevant parser options.
 	 */
 	public static function linktextReplace( $matches ) {
 		$parts = explode( '|', $matches[1], 2 );
@@ -284,8 +285,8 @@ class ParserPowerSimple {
 	 */
 	public static function ueifRender( $parser, $frame, $params ) {
 		$condition = isset( $params[0] ) ? trim( $frame->expand( $params[0] ) ) : '';
-		$trueValue = isset( $params[1] ) ? $params[1] : '';
-		$falseValue = isset( $params[2] ) ? $params[2] : '';
+		$trueValue = $params[1] ?? '';
+		$falseValue = $params[2] ?? '';
 
 		if ( $condition !== '' ) {
 			return [ ParserPower::unescape( $frame->expand( $trueValue ) ), 'noparse' => false ];
@@ -331,8 +332,8 @@ class ParserPowerSimple {
 		$rightValue =
 			isset( $params[1] ) ? ParserPower::unescape( trim( $frame->expand( $params[1] ) ) )
 				: '';
-		$trueValue = isset( $params[2] ) ? $params[2] : '';
-		$falseValue = isset( $params[3] ) ? $params[3] : '';
+		$trueValue = $params[2] ?? '';
+		$falseValue = $params[3] ?? '';
 
 		if ( $leftValue === $rightValue ) {
 			return [ ParserPower::unescape( $frame->expand( $trueValue ) ), 'noparse' => false ];
@@ -357,7 +358,7 @@ class ParserPowerSimple {
 			ParserPower::unescape(
 				trim( $frame->expand( $params[1], PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES ) )
 			) : 'x';
-		$pattern = isset( $params[2] ) ? $params[2] : 'x';
+		$pattern = $params[2] ?? 'x';
 
 		return [
 			ParserPower::applyPattern( $parser, $frame, $inValue, $token, $pattern ),
@@ -386,7 +387,7 @@ class ParserPowerSimple {
 				)
 				:
 				'x';
-			$pattern = isset( $params[2] ) ? $params[2] : 'x';
+			$pattern = $params[2] ?? 'x';
 
 			return [
 				ParserPower::applyPattern( $parser, $frame, $inValue, $token, $pattern ),
@@ -413,7 +414,7 @@ class ParserPowerSimple {
 			) : '';
 		if ( count( $params ) > 0 ) {
 			$default = '';
-			if ( strpos( $frame->expand( $params[count( $params ) - 1] ), '=' ) === false ) {
+			if ( !str_contains( $frame->expand( $params[count( $params ) - 1] ), '=' ) ) {
 				$default = array_pop( $params );
 			}
 
@@ -458,10 +459,11 @@ class ParserPowerSimple {
 		$title = Title::newFromText( $text );
 		if ( $title !== null && $title->getNamespace() !== NS_MEDIA &&
 			 $title->getNamespace() > -1 ) {
-			$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
-			$target = $page->getRedirectTarget();
-			if ( $target !== null ) {
-				$output = $target->getPrefixedText();
+			$redirectLookup = MediaWikiServices::getInstance()->getRedirectLookup();
+			$linkTarget = $redirectLookup->getRedirectTarget( $title );
+			if ( $linkTarget !== null ) {
+				$linkTarget = Title::newFromLinkTarget( $linkTarget );
+				$output = $linkTarget->getPrefixedText();
 			}
 		}
 

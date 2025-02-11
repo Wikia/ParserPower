@@ -81,7 +81,7 @@ class ParserPowerSortKeyValueComparer {
 	 *
 	 * @param int $options
 	 *
-	 * @return ?callable If something broke up the call-stack this could potentially return null
+	 * @return callable-string If something broke up the call-stack this could potentially return null
 	 */
 	private function getComparer( $options ) {
 		if ( $options & ParserPowerLists::SORT_NUMERIC ) {

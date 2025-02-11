@@ -225,7 +225,8 @@ class ParserPowerLists {
 	 * This function gets the specified element from the array after filtering out any empty values before it so that
 	 * the empty values are skipped in index counting. The returned element is unescaped.
 	 *
-	 * @param array $inIndex The 1-based index of the array element to get, or a negative value to start from the end.
+	 * @param int $inIndex The 1-based index of the array element to get, or a negative value to
+	 * start from the end.
 	 * @param array $inValues The array to get the element from.
 	 *
 	 * @return string The array element, trimmed and with character escapes replaced, or empty string if not found.
@@ -268,7 +269,7 @@ class ParserPowerLists {
 	 * according to specified offset and length. It also performs un-escaping on each item. Note that values
 	 * that are only empty after the unescape are preserved.
 	 *
-	 * @param array $inOffset
+	 * @param int $inOffset
 	 * @param int $inLength
 	 * @param array $inValues The array to trim, remove empty values from, slice, and unescape.
 	 *
@@ -737,7 +738,7 @@ class ParserPowerLists {
 	 * @param string $token The token to replace.
 	 * @param string $pattern Pattern containing token to be replaced with the input value.
 	 *
-	 * @return The result of the token replacement within the pattern.
+	 * @return string The result of the token replacement within the pattern.
 	 */
 	private static function applyPattern( $parser, $frame, $inValue, $token, $pattern ) {
 		return ParserPower::applyPattern( $parser, $frame, $inValue, $token, $pattern );
@@ -755,7 +756,7 @@ class ParserPowerLists {
 	 * @param string $token The token to replace.
 	 * @param string $pattern Pattern containing token to be replaced with the input value.
 	 *
-	 * @return The result of the token replacement within the pattern.
+	 * @return string The result of the token replacement within the pattern.
 	 */
 	private static function applyPatternWithIndex(
 		$parser,
@@ -788,7 +789,7 @@ class ParserPowerLists {
 	 * @param int $tokenCount The number of tokens.
 	 * @param string $pattern Pattern containing tokens to be replaced by field values.
 	 *
-	 * @return The result of the token replacement within the pattern.
+	 * @return string The result of the token replacement within the pattern.
 	 */
 	private static function applyFieldPattern(
 		$parser,
@@ -824,7 +825,7 @@ class ParserPowerLists {
 	 * @param int $tokenCount The number of tokens.
 	 * @param string $pattern Pattern containing tokens to be replaced by field values.
 	 *
-	 * @return The result of the token replacement within the pattern.
+	 * @return string The result of the token replacement within the pattern.
 	 */
 	private static function applyFieldPatternWithIndex(
 		$parser,
@@ -881,7 +882,7 @@ class ParserPowerLists {
 	 * @param string $template The template to pass the parameters to.
 	 * @param string $fieldSep The delimiter separating the parameter values.
 	 *
-	 * @return The result of the template.
+	 * @return string The result of the template.
 	 */
 	private static function applyTemplate( $parser, $frame, $inValue, $template, $fieldSep ) {
 		$inValue = trim( $inValue );
@@ -899,7 +900,7 @@ class ParserPowerLists {
 				for ( $i = 0; $i < $count; $i++ ) {
 					$outFields[] = ( $i + 1 ) . '=' . $inFields[$i];
 				}
-				$outValue = $frame->virtualBracketedImplode( '{{', '|', '}}', $outFields );
+				$outValue = $frame->virtualBracketedImplode( '{{', '|', '}}', ...$outFields );
 			}
 			if ( $outValue instanceof PPNode_Hash_Array ) {
 				$outValue = $outValue->value;
@@ -1600,7 +1601,7 @@ class ParserPowerLists {
 					$fieldSep,
 					$indexToken,
 					$token,
-					isset( $tokens ) ? $tokens : null,
+					$tokens ?? null,
 					$pattern
 				);
 			} else {
@@ -1913,7 +1914,7 @@ class ParserPowerLists {
 	 *
 	 * @param Parser $parser The parser object.
 	 * @param PPFrame $frame The parser frame object.
-	 * @param string $values The input list.
+	 * @param array $values The input list.
 	 * @param string $template The template to use.
 	 * @param string $fieldSep The delimiter separating values in the input list.
 	 * @param string $indexToken Replace the current 1-based index of the element. Null/empty to skip.
@@ -2068,8 +2069,7 @@ class ParserPowerLists {
 					$template,
 					$fieldSep,
 					$indexToken,
-					$token,
-					isset( $tokens ) ? $tokens : null,
+					$token, $tokens ?? null,
 					$pattern,
 					$sortOptions,
 					$subsort,
@@ -2480,7 +2480,7 @@ class ParserPowerLists {
 				ParserPower::unescape(
 					trim( $frame->expand( $params[2], PPFrame::NO_ARGS | PPFrame::NO_TEMPLATES ) )
 				) : 'x';
-			$pattern = isset( $params[3] ) ? $params[3] : 'x';
+			$pattern = $params[3] ?? 'x';
 			$outSep =
 				isset( $params[4] ) ? ParserPower::unescape( trim( $frame->expand( $params[4] ) ) )
 					: ', ';
